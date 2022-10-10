@@ -20,11 +20,6 @@ app.post("/search", (req, res) => {
   // TODO: Integrate with backend?
   // Get results
   // Pass results in res to search results page and render page.
-  res.render("/views/search_results");
-});
-
-// for testing only. remove
-app.get("/search", (req, res) => {
   const zipcode = "98101";
   res.render("search_results", { zipcode: zipcode });
 });
