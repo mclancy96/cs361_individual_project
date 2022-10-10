@@ -1,15 +1,26 @@
 <nav class="navbar navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">
+    <div class="dropdown navbar-brand">
       <img
         src="/img/profile.svg"
         alt="Logo"
         width="50"
         height="50"
         class="d-inline-block align-text-top"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
       />
+      <ul class="dropdown-menu dropdown-menu-dark">
+        <li><a class="dropdown-item" href="#">User Name</a></li>
+        <li><hr class="dropdown-divider" /></li>
+        <li><a class="dropdown-item" href="#">My Zip Codes</a></li>
+        <li><a class="dropdown-item" href="#">My Representatives</a></li>
+      </ul>
+    </div>
+    <a class="navbar-brand" href="/">
+      <h1 class="text-bg-dark">Find Your Representative</h1>
     </a>
-    <h1 class="text-bg-dark">Find Your Representative</h1>
     <%- include("search_bar") %>
   </div>
 </nav>
