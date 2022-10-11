@@ -1,0 +1,49 @@
+<div class="row border border-2">
+  <div class="col">
+    <h2>Districts</h2>
+    <p>Below you will see all of the districts for <%=zipcode%></p>
+    <div class="container text-center">
+      <div class="row">
+        <%// districts.forEach(()=>{%>
+        <div class="col-6">
+          <div class="card mb-4">
+            <div class="row g-0">
+              <div class="col-md-3 my-auto">
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Stavanger_city_map_cut.jpg"
+                  class="img-fluid p-1 rounded"
+                  alt="district map"
+                />
+              </div>
+              <div class="col-md-7">
+                <div class="card-body text-start">
+                  <h5 class="card-title">WA District 5</h5>
+                  <p class="card-text">
+                    <small><b>Income:</b></small>
+                  </p>
+                  <p class="card-text">
+                    <small><b>Population:</b></small>
+                  </p>
+                </div>
+              </div>
+              <div class="col-md-1 mx-auto">
+                <div class="card-body text-start">
+                  <a href="#">
+                    <img
+                      src="/img/heart_empty.png"
+                      alt="heart"
+                      width="20"
+                      height="20"
+                      onmouseover="hover(this)"
+                      onmouseout="hover(this)"
+                  /></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <%//}) %>
+      </div>
+    </div>
+  </div>
+</div>

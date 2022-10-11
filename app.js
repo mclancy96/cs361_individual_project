@@ -22,9 +22,16 @@ app.get("/", (req, res) => {
 app.post("/search", async (req, res) => {
   // TODO: Integrate with backend?
   // Request representatives
-  //   const zipcode = req.body.zipcode;
-  const zipcode = "98101";
-  await getDistricts(zipcode);
+  const zipcode = req.body.zipcode;
+  if (!zipcode) {
+    console.log("Error with zip");
+  }
+  let zipString = zipcode.toString();
+  let buffer = 5 - zipString.length;
+  for (let i = 0; i < buffer; i++) {
+    zipString = "0" + zipString;
+  }
+  //await getDistricts(zipcode);
 
   // Get results
   const districts = [];
@@ -33,7 +40,7 @@ app.post("/search", async (req, res) => {
   // Pass results in res to search results page and render page.
 
   res.render("search_results", {
-    zipcode: zipcode,
+    zipcode: zipString,
     districts: districts,
     reps: reps,
     senators: senators,
