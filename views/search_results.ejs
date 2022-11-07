@@ -25,7 +25,7 @@
 
 <div class="container text-center pt-2">
   <!-- Districts in Zip Code -->
-  <%- include("partials/districts", {districts: districts, zipcode: zipcode}) %>
+  <%- include("partials/districts", {data: districtData, district: district}) %>
   <!-- Congressmen -->
   <%- include("partials/congressmen", {reps:reps, senators:senators, zipcode:
   zipcode}) %>

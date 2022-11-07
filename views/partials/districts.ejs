@@ -1,29 +1,29 @@
 <div class="row border border-2 mb-3">
   <div class="col">
-    <h2>Districts</h2>
-    <p>Below you will see all of the districts for <%=zipcode%></p>
+    <h2>District</h2>
     <div class="container text-center">
       <div class="row">
-        <%// districts.forEach(()=>{%>
-        <div class="col-6">
+        <div class="col-12">
           <div class="card mb-4">
             <div class="row g-0">
-              <div class="col-md-3 my-auto">
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Stavanger_city_map_cut.jpg"
-                  class="img-fluid p-1 rounded"
-                  alt="map of district 5"
-                />
+              <div class="col-md-4 my-auto">
+                <img src="<%= data.map %>" class="img-fluid p-1 rounded"
+                alt="map of <%=district ? district : "district"%>" />
               </div>
               <div class="col-md-7">
                 <div class="card-body text-start">
-                  <h5 class="card-title">WA District 5</h5>
+                  <h5 class="card-title"><%=district%></h5>
                   <p class="card-text">
-                    <small><b>Income:</b></small>
+                    <b>Median Income: </b><%=data.income.slice(0,-3) == "[1]" ?
+                    data.income.slice(0,-3) : data.income%>
                   </p>
                   <p class="card-text">
-                    <small><b>Population:</b></small>
+                    <b>Population:</b> <%=data.population%>
                   </p>
+                  <a
+                    href="https://en.wikipedia.org/wiki/<%= encodeURIComponent(district) %> "
+                    >Wikipedia Page</a
+                  >
                 </div>
               </div>
               <div class="col-md-1 mx-auto">
@@ -42,7 +42,6 @@
             </div>
           </div>
         </div>
-        <%//}) %>
       </div>
     </div>
   </div>

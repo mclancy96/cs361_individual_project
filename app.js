@@ -1,9 +1,8 @@
 import express, { urlencoded } from "express";
 const app = express();
 import cors from "cors";
-import ejs from "ejs";
 import dotenv from "dotenv";
-import { getDistricts } from "./controllers/getDistricts.js";
+import { getRepData, getDistData } from "./controllers/getData.js";
 
 dotenv.config();
 
@@ -20,30 +19,66 @@ app.get("/", (req, res) => {
 
 // post route for zip code search
 app.post("/search", async (req, res) => {
-  // TODO: Integrate with backend?
   // Request representatives
-  const zipcode = req.body.zipcode;
+  let zipcode = req.body.zipcode;
   if (!zipcode) {
     console.log("Error with zip");
+    res.render("error", {
+      message:
+        "That zipcode resulted in an error. Please try entering your full address.",
+    });
+    return;
   }
-  let zipString = zipcode.toString();
-  let buffer = 5 - zipString.length;
-  for (let i = 0; i < buffer; i++) {
-    zipString = "0" + zipString;
+  if (zipcode.length < 5) {
+    let zipString = zipcode.toString();
+    let buffer = 5 - zipString.length;
+    for (let i = 0; i < buffer; i++) {
+      zipString = "0" + zipString;
+    }
+    zipcode = zipString;
   }
-  //await getDistricts(zipcode);
 
-  // Get results
-  const districts = [];
-  const reps = [];
-  const senators = [];
-  // Pass results in res to search results page and render page.
+  let results;
+  try {
+    results = await getRepData(zipcode);
+  } catch (error) {
+    res.render("error", {
+      message:
+        "That zipcode resulted in an error. Please try entering your full address.",
+    });
+    return;
+  }
+
+  if (!results || Object.keys(results).length === 0) {
+    res.render("error", {
+      message:
+        "We aren't able to find information for that zip code. Please try entering your full address.",
+    });
+    return;
+  }
+
+  if (results.officials == {} || results.officials.representatives == []) {
+    res.render("error", {
+      message:
+        "There may be multiple districts for that zip code. Please try entering your full address.",
+    });
+    return;
+  }
+
+  const { input } = results;
+
+  if (input) {
+    zipcode = input["zip"];
+  }
+
+  const districtData = await getDistData(results.district);
 
   res.render("search_results", {
-    zipcode: zipString,
-    districts: districts,
-    reps: reps,
-    senators: senators,
+    zipcode: zipcode,
+    district: results.district,
+    reps: results.officials.representatives,
+    senators: results.officials.senators,
+    districtData: districtData,
   });
 });
 

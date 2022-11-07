@@ -1,0 +1,73 @@
+<div class="col-12">
+  <div class="card mb-2">
+    <div class="row g-0">
+      <div class="col-md-3 my-auto">
+        <%if (person.photoUrl){%>
+        <img
+          src="<%= person.photoUrl %>"
+          class="img-fluid p-1 rounded"
+          alt="image of <%=person.name%>"
+        />
+        <%} else {%>
+        <p>No image available</p>
+        <% } %>
+      </div>
+      <div class="col-md-7">
+        <div class="card-body text-start">
+          <b><%=person.name%></b> (<%=person.party.slice(0,1)%>)
+          <p class="card-text">
+            <small><a href="<%= person.urls[0] %>">Website</a></small>
+          </p>
+          <% if(type == "r"){ %>
+          <p class="card-text">
+            <small><b>District:</b> <%= district %> </small>
+          </p>
+          <% } %>
+          <p class="card-text">
+            <small><b>Phone:</b> <%= person.phones[0] %> </small>
+          </p>
+          <% if(person.address){ %>
+            <p class="card-text">
+                <div class="row">
+                    <div class="col-auto">
+                        <small><b>Address:</b></small>
+                    </div>
+                   <div class="col-auto">
+                        <p class="lh-1 py-0"><small><%= person.address[0].line1%></small></p>
+                        <% if (person.address[0].line2) {%> 
+                            <p class="lh-1 py-0"><small><%= person.address[0].line2%></small></p>
+                        <% } %>
+                        <p class="lh-1"><small><%= person.address[0].city%>, <%= person.address[0].state%>, <%= person.address[0].zip%></small></p>
+                   </div>
+                </div>
+            </p>
+            <% } %>
+            <% if(person.channels){ %>
+                <small><p class="card-text">
+                    <b>Social Media: </b> <br>
+                    <ul>
+                    <% person.channels.forEach((channel) => {%>
+                        <li><%= channel.type %>: @<%= channel.id %></li> 
+                    <%}) %> 
+                    </ul>
+                
+                </p></small>
+            <% } %>
+        </div>
+      </div>
+      <div class="col-md-1 mx-auto">
+        <div class="card-body text-start">
+          <a href="#">
+            <img
+              src="/img/heart_empty.png"
+              alt="heart"
+              width="20"
+              height="20"
+              onmouseover="hover(this)"
+              onmouseout="hover(this)"
+          /></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
