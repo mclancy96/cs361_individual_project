@@ -1,4 +1,16 @@
 <div class="row border border-2 mb-3">
+  <script>
+    const emptyHeart = "/img/heart_empty.png";
+    const filledHeart = "/img/heart_filled.png";
+    const hover = (element) => {
+      const elementSrc = element.getAttribute("src");
+      if (elementSrc == emptyHeart) {
+        element.setAttribute("src", filledHeart);
+      } else {
+        element.setAttribute("src", emptyHeart);
+      }
+    };
+  </script>
   <div class="col">
     <h2>District</h2>
     <div class="container text-center">
@@ -29,14 +41,11 @@
               <div class="col-md-1 mx-auto">
                 <div class="card-body text-start">
                   <a href="#">
-                    <img
-                      src="/img/heart_empty.png"
-                      alt="heart"
-                      width="20"
-                      height="20"
-                      onmouseover="hover(this)"
-                      onmouseout="hover(this)"
-                  /></a>
+                    <img src="<%= user.districts.includes(district) ?
+                    "/img/heart_filled.png" : "/img/heart_empty.png" %> "
+                    alt="heart" width="20" height="20" onmouseover="hover(this)"
+                    onmouseout="hover(this)" /></a
+                  >
                 </div>
               </div>
             </div>

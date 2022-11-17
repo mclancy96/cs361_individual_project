@@ -6,7 +6,8 @@
     <div class="container text-center">
       <div class="row">
         <% if(senators){%> <% senators.forEach((senator)=>{%> <%-
-        include("profile", {person: senator, type:"s"}) %> <%}) %> <%} %>
+        include("profile", {person: senator, type:"s", user: user}) %> <%}) %>
+        <%} %>
       </div>
     </div>
   </div>
@@ -17,7 +18,7 @@
     <div class="container text-center">
       <div class="row">
         <% if (reps){%> <% reps.forEach((rep)=>{%> <%- include("profile",
-        {person: rep, type: "r"}) %> <%}) %> <%} %>
+        {person: rep, type: "r", user: user}) %> <%}) %> <%} %>
       </div>
     </div>
   </div>

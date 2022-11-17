@@ -16,8 +16,9 @@ app.use(cors());
 app.use(express.static("./public"));
 app.set("view engine", "ejs");
 
-app.get("/", (req, res) => {
-  res.render("index");
+app.get("/", async (req, res) => {
+  const user = await userControllers.getUser(userId);
+  res.render("index", { user: user });
 });
 
 // post route for zip code search
@@ -76,12 +77,15 @@ app.post("/search", async (req, res) => {
 
   const districtData = await getDistData(results.district);
 
+  const user = await userControllers.getUser(userId);
+
   res.render("search_results", {
     zipcode: zipcode,
     district: results.district,
     reps: results.officials.representatives,
     senators: results.officials.senators,
     districtData: districtData,
+    user: user,
   });
 });
 

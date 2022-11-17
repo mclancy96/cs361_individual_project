@@ -1,16 +1,4 @@
 <%- include("partials/header", {title: "Search Results"}) %>
-<script>
-  const emptyHeart = "/img/heart_empty.png";
-  const filledHeart = "/img/heart_filled.png";
-  const hover = (element) => {
-    const elementSrc = element.getAttribute("src");
-    if (elementSrc == emptyHeart) {
-      element.setAttribute("src", filledHeart);
-    } else {
-      element.setAttribute("src", emptyHeart);
-    }
-  };
-</script>
 
 <div class="row">
   <div class="col-1">
@@ -25,9 +13,10 @@
 
 <div class="container text-center pt-2">
   <!-- Districts in Zip Code -->
-  <%- include("partials/districts", {data: districtData, district: district}) %>
+  <%- include("partials/districts", {data: districtData, district: district,
+  user:user}) %>
   <!-- Congressmen -->
   <%- include("partials/congressmen", {reps:reps, senators:senators, zipcode:
-  zipcode}) %>
+  zipcode, user: user}) %>
 </div>
 <%- include("partials/footer") %>
