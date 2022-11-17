@@ -9,6 +9,8 @@ dotenv.config();
 
 const port = process.env.PORT;
 
+const userId = "637667dae2a171c6b9e9e1fe"; // user creation and editing not part of this sprint
+
 app.use(urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.static("./public"));
@@ -110,27 +112,55 @@ app.post("/user/new", async (req, res) => {
   }
 });
 
-app.post("/user/:id/reps/add", async (req, res) => {
+app.post("/user/:id/reps/", async (req, res) => {
   try {
     const { rep } = req.body;
-    userControllers.addRep(rep, req.params.id);
-    res.status(200).send(`Representative ${rep} added for: ${userName}`);
-    console.log(`Representative ${rep} added for: ${userName}`);
+    if (rep == null || rep == "" || rep.length == 0) {
+      throw "Representative's name is empty";
+    }
+    await userControllers.addRep(rep, req.params.id);
+    res.status(200).send(`${rep} added to representatives`);
   } catch (error) {
     res.status(400).send(`Error adding rep: ${error}`);
-    console.log(`Error adding rep: ${error}`);
   }
 });
 
-app.post("/user/:id/districts/add", async (req, res) => {
+app.delete("/user/:id/reps/", async (req, res) => {
   try {
-    const { district } = req.body;
-    userControllers.addDistrict(district, req.params.id);
-    res.status(200).send(`District ${district} added for: ${userName}`);
-    console.log(`District ${district} added for: ${userName}`);
+    const { rep } = req.body;
+    if (rep == null || rep == "" || rep.length == 0) {
+      throw "Representative's name is empty";
+    }
+    await userControllers.removeRep(rep, req.params.id);
+    res.status(200).send(`Representative removed`);
   } catch (error) {
     res.status(400).send(`Error adding rep: ${error}`);
-    console.log(`Error adding rep: ${error}`);
+  }
+});
+
+app.post("/user/:id/districts/", async (req, res) => {
+  try {
+    const { district } = req.body;
+    if (district == null || district == "" || district.length == 0) {
+      throw "District's name is empty";
+    }
+    await userControllers.addDistrict(district, req.params.id);
+    res.status(200).send(`District ${district} added`);
+  } catch (error) {
+    res.status(400).send(`Error adding district: ${error}`);
+  }
+});
+
+app.delete("/user/:id/districts/", async (req, res) => {
+  try {
+    const { district } = req.body;
+    if (district == null || district == "" || district.length == 0) {
+      throw "District's name is empty";
+    }
+    await userControllers.removeDistrict(district, req.params.id);
+    res.status(200).send(`District removed`);
+  } catch (error) {
+    res.status(400).send(`Error deleting district: ${error}`);
   }
 });
 

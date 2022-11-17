@@ -1,4 +1,4 @@
-const User = require("../models/user");
+import { User } from "../models/user.js";
 
 const arrayRemove = (arr, value) => {
   return arr.filter((element) => {
@@ -8,49 +8,49 @@ const arrayRemove = (arr, value) => {
 
 export const addUser = (userName) => {
   const newUser = new User({ name: userName });
-  newUser.save();
+  return newUser.save();
 };
 
 export const getUser = (id) => {
-  return User.find({ _id: id });
+  return User.findOne({ _id: id });
 };
 
 export const addDistrict = async (district, id) => {
-  try {
-    const user = await getUser(id);
+  const user = await getUser(id);
+  if (!user.districts.includes(district)) {
     user.districts.push(district);
     user.save();
-  } catch (error) {
-    console.log("Error adding district");
+  } else {
+    throw "District already exists";
   }
 };
 
 export const addRep = async (rep, id) => {
-  try {
-    const user = await getUser(id);
+  const user = await getUser(id);
+  if (!user.reps.includes(rep)) {
     user.reps.push(rep);
     user.save();
-  } catch (error) {
-    console.log("Error adding representative");
+  } else {
+    throw "Representative already exists";
   }
 };
 
 export const removeDistrict = async (district, id) => {
-  try {
-    const user = await getUser(id);
+  const user = await getUser(id);
+  if (user.districts.includes(district)) {
     user.districts = arrayRemove(user.districts, district);
     user.save();
-  } catch (error) {
-    console.log("Error removing district");
+  } else {
+    throw "District not in favorites";
   }
 };
 
 export const removeRep = async (rep, id) => {
-  try {
-    const user = await getUser(id);
+  const user = await getUser(id);
+  if (user.reps.includes(rep)) {
     user.reps = arrayRemove(user.reps, rep);
     user.save();
-  } catch (error) {
-    console.log("Error removing representative");
+  } else {
+    throw "Representative not in favorites";
   }
 };
