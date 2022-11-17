@@ -1,7 +1,5 @@
 <div class="row border border-2 mb-3">
   <script>
-    const emptyHeart = "/img/heart_empty.png";
-    const filledHeart = "/img/heart_filled.png";
     const hover = (element) => {
       const elementSrc = element.getAttribute("src");
       if (elementSrc == emptyHeart) {
@@ -40,12 +38,18 @@
               </div>
               <div class="col-md-1 mx-auto">
                 <div class="card-body text-start">
-                  <a href="#">
-                    <img src="<%= user.districts.includes(district) ?
-                    "/img/heart_filled.png" : "/img/heart_empty.png" %> "
-                    alt="heart" width="20" height="20" onmouseover="hover(this)"
-                    onmouseout="hover(this)" /></a
-                  >
+                  <form id="district-heart" 
+                  action="/user/<%= user._id %>/districts<%= user.districts.includes(district) ?
+                  "/delete" : "" %>" 
+                  method="POST">
+                    <a href="#" onclick="document.getElementById('district-heart').submit()">
+                      <img src="<%= user.districts.includes(district) ?
+                      "/img/heart_filled.png" : "/img/heart_empty.png" %> "
+                      alt="heart" width="20" height="20" onmouseover="hover(this)"
+                      onmouseout="hover(this)" />
+                    </a>
+                    <input name="district" value="<%= district %>" hidden>
+                  </form>
                 </div>
               </div>
             </div>

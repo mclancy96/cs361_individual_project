@@ -123,22 +123,22 @@ app.post("/user/:id/reps/", async (req, res) => {
       throw "Representative's name is empty";
     }
     await userControllers.addRep(rep, req.params.id);
-    res.status(200).send(`${rep} added to representatives`);
+    res.redirect(`/user/${req.params.id}`);
   } catch (error) {
-    res.status(400).send(`Error adding rep: ${error}`);
+    res.redirect(`/user/${req.params.id}`);
   }
 });
 
-app.delete("/user/:id/reps/", async (req, res) => {
+app.post("/user/:id/reps/delete", async (req, res) => {
   try {
     const { rep } = req.body;
     if (rep == null || rep == "" || rep.length == 0) {
       throw "Representative's name is empty";
     }
     await userControllers.removeRep(rep, req.params.id);
-    res.status(200).send(`Representative removed`);
+    res.redirect(`/user/${req.params.id}`);
   } catch (error) {
-    res.status(400).send(`Error adding rep: ${error}`);
+    res.redirect(`/user/${req.params.id}`);
   }
 });
 
@@ -149,22 +149,22 @@ app.post("/user/:id/districts/", async (req, res) => {
       throw "District's name is empty";
     }
     await userControllers.addDistrict(district, req.params.id);
-    res.status(200).send(`District ${district} added`);
+    res.redirect(`/user/${req.params.id}`);
   } catch (error) {
-    res.status(400).send(`Error adding district: ${error}`);
+    res.redirect(`/user/${req.params.id}`);
   }
 });
 
-app.delete("/user/:id/districts/", async (req, res) => {
+app.post("/user/:id/districts/delete", async (req, res) => {
   try {
     const { district } = req.body;
     if (district == null || district == "" || district.length == 0) {
       throw "District's name is empty";
     }
     await userControllers.removeDistrict(district, req.params.id);
-    res.status(200).send(`District removed`);
+    res.redirect(`/user/${req.params.id}`);
   } catch (error) {
-    res.status(400).send(`Error deleting district: ${error}`);
+    res.redirect(`/user/${req.params.id}`);
   }
 });
 

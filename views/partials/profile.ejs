@@ -1,7 +1,5 @@
 <div class="col-12">
   <script>
-    const emptyHeart = "/img/heart_empty.png";
-    const filledHeart = "/img/heart_filled.png";
     const hover = (element) => {
       const elementSrc = element.getAttribute("src");
       if (elementSrc == emptyHeart) {
@@ -11,8 +9,6 @@
       }
     };
   </script>   
-    
-  
   <div class="card mb-2">
     <div class="row g-0">
       <div class="col-md-3 my-auto">
@@ -71,15 +67,18 @@
       </div>
       <div class="col-md-1 mx-auto">
         <div class="card-body text-start">
-          <a href="#">
-            <img
-              src="<%= user.reps.includes(person.name)? "/img/heart_filled.png" : "/img/heart_empty.png" %> "
-              alt="heart"
-              width="20"
-              height="20"
-              onmouseover="hover(this)"
-              onmouseout="hover(this)"
-          /></a>
+          <form id="rep-heart-<%= counter %>" 
+                  action="/user/<%= user._id %>/reps<%= user.reps.includes(person.name) ?
+                  "/delete" : "" %>" 
+                  method="POST">
+            <a href="#" onclick="document.getElementById('rep-heart-<%= counter %>').submit()">
+              <img src="<%= user.reps.includes(person.name) ?
+              "/img/heart_filled.png" : "/img/heart_empty.png" %> "
+              alt="heart" width="20" height="20" onmouseover="hover(this)"
+              onmouseout="hover(this)" />
+            </a>
+            <input name="rep" value="<%= person.name %>" hidden>
+          </form>
         </div>
       </div>
     </div>
