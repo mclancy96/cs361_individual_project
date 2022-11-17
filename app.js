@@ -2,6 +2,7 @@ import express, { urlencoded } from "express";
 const app = express();
 import cors from "cors";
 import dotenv from "dotenv";
+import * as userControllers from "./controllers/user.js";
 import { getRepData, getDistData } from "./controllers/getData.js";
 
 dotenv.config();
@@ -79,6 +80,65 @@ app.post("/search", async (req, res) => {
     reps: results.officials.representatives,
     senators: results.officials.senators,
     districtData: districtData,
+  });
+});
+
+//======================================================
+//==================User Routes=========================
+//======================================================
+
+app.get("/user/:id", async (req, res) => {
+  try {
+    const user = await userControllers.getUser(req.params.id);
+    res.status(200).render("profile", { user: user });
+  } catch (error) {
+    res.status(400).send(`Error getting user: ${error}`);
+    console.log(`Error getting user: ${error}`);
+  }
+});
+
+app.post("/user/new", async (req, res) => {
+  try {
+    const { userName } = req.body;
+    userControllers.addUser(userName).then(() => {
+      res.status(200).send(`New user created: ${userName}`);
+      console.log(`New user created: ${userName}`);
+    });
+  } catch (error) {
+    res.status(400).send(`Error adding user: ${error}`);
+    console.log(`Error adding user: ${error}`);
+  }
+});
+
+app.post("/user/:id/reps/add", async (req, res) => {
+  try {
+    const { rep } = req.body;
+    userControllers.addRep(rep, req.params.id);
+    res.status(200).send(`Representative ${rep} added for: ${userName}`);
+    console.log(`Representative ${rep} added for: ${userName}`);
+  } catch (error) {
+    res.status(400).send(`Error adding rep: ${error}`);
+    console.log(`Error adding rep: ${error}`);
+  }
+});
+
+app.post("/user/:id/districts/add", async (req, res) => {
+  try {
+    const { district } = req.body;
+    userControllers.addDistrict(district, req.params.id);
+    res.status(200).send(`District ${district} added for: ${userName}`);
+    console.log(`District ${district} added for: ${userName}`);
+  } catch (error) {
+    res.status(400).send(`Error adding rep: ${error}`);
+    console.log(`Error adding rep: ${error}`);
+  }
+});
+
+//======================================================
+
+app.get("*", (req, res) => {
+  res.render("error", {
+    message: "That page doesn't exist",
   });
 });
 
