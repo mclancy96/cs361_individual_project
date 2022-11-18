@@ -1,0 +1,23 @@
+<%- include("partials/header", {title: "Profile"}) %>
+<div>
+  <h1><%=user.name%>'s Profile</h1>
+  <% if(user.reps?.length > 0){%>
+  <h2>Favorite Representatives</h2>
+  <% user.reps.forEach((rep)=>{%>
+  <p><%=rep%></p>
+  <%}) %> <% } %> <% if(user.districts?.length > 0){%>
+  <h2>Favorite Districts</h2>
+  <% let counter = 0; %> <% user.districts.forEach((district)=>{%>
+  <form id="district-<%=counter%>" action="/search" method="POST">
+    <a
+      href="#"
+      onclick="document.getElementById('district-<%=counter%>').submit()"
+    >
+      <%= district %>
+    </a>
+    <input name="zipcode" value="<%= district%>" hidden />
+  </form>
+  <%counter++;}) %> <% } %>
+</div>
+
+<%-include("partials/footer") %>

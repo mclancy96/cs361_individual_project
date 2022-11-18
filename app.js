@@ -96,7 +96,7 @@ app.post("/search", async (req, res) => {
 app.get("/user/:id", async (req, res) => {
   try {
     const user = await userControllers.getUser(req.params.id);
-    res.status(200).render("profile", { user: user });
+    res.status(200).render("userProfile", { user: user });
   } catch (error) {
     res.status(400).send(`Error getting user: ${error}`);
     console.log(`Error getting user: ${error}`);

@@ -39,16 +39,16 @@
               <div class="col-md-1 mx-auto">
                 <div class="card-body text-start">
                   <form id="district-heart" 
-                  action="/user/<%= user._id %>/districts<%= user.districts.includes(district) ?
+                  action="/user/<%= user._id %>/districts<%= user.districts.includes(zipcode) ?
                   "/delete" : "" %>" 
                   method="POST">
                     <a href="#" onclick="document.getElementById('district-heart').submit()">
-                      <img src="<%= user.districts.includes(district) ?
+                      <img src="<%= user.districts.includes(zipcode) ?
                       "/img/heart_filled.png" : "/img/heart_empty.png" %> "
                       alt="heart" width="20" height="20" onmouseover="hover(this)"
                       onmouseout="hover(this)" />
                     </a>
-                    <input name="district" value="<%= district %>" hidden>
+                    <input name="district" value="<%= zipcode%>" hidden>
                   </form>
                 </div>
               </div>

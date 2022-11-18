@@ -7,7 +7,8 @@
       <div class="row">
         <%let counter = 0;%> <% if(senators){%> <%
         senators.forEach((senator)=>{%> <%- include("profile", {person: senator,
-        type:"s", user: user, counter:counter}) %> <%counter++;}) %> <%} %>
+        type:"s", user: user, counter:counter, zipcode:zipcode}) %>
+        <%counter++;}) %> <%} %>
       </div>
     </div>
   </div>
