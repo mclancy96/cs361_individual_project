@@ -2,7 +2,7 @@ import fetch from "node-fetch";
 import axios from "axios";
 import * as cheerio from "cheerio";
 
-const searchUrl = "http://localhost:3005/zip";
+const searchUrl = process.env.SEARCHURL;
 
 export const getRepData = async (zipcode) => {
   try {
